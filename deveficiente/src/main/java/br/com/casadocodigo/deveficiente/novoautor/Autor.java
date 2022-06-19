@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -24,11 +21,11 @@ public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank
+    @Column(nullable = false)
     private String nome;
-    @NotBlank @Email
+    @Column(nullable = false, unique = true) @Email
     private String email;
-    @NotBlank @Size(max = 400)
+    @Column(nullable = false) @Size(max = 400)
     private String descricao;
     private LocalDateTime instanteCriacao = LocalDateTime.now();
 
