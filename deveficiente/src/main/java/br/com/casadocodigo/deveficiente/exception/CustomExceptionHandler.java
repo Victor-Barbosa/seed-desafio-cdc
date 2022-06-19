@@ -3,6 +3,7 @@ package br.com.casadocodigo.deveficiente.exception;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -11,9 +12,9 @@ import java.util.stream.Collectors;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
-public class ExceptionHandler {
+public class CustomExceptionHandler {
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExcepetionResponse> validationHandler(MethodArgumentNotValidException ex){
 
         var fieldErrors = ex.getBindingResult().getFieldErrors();
@@ -25,7 +26,7 @@ public class ExceptionHandler {
 
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ResponseStatusException.class)
+    @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ExcepetionResponse> responseStatusHandler(ResponseStatusException ex){
 
         var status = ex.getStatus();

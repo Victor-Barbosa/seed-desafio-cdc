@@ -14,11 +14,15 @@ public record AutoresController(AutorRepository autorRepository) {
 
     @PostMapping("/autores")
     public ResponseEntity<String> save(@RequestBody @Valid AutorRequest request){
+        emailExists(request);
+        var autor = request.toModel();
+        autorRepository.save(autor);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Autor(a) Cadastrado");
+    }
+
+    private void emailExists(AutorRequest request) {
         if (autorRepository.existsByEmail(request.email())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ja existe autor(a) com esse email Cadastrado!");
         }
-        Autor autor = request.toModel();
-        autorRepository.save(autor);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Autor(a) Cadastrado");
     }
 }
