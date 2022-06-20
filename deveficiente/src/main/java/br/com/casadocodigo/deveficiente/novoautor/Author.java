@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Data
-public class Autor {
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,7 @@ public class Autor {
     private String descricao;
     private LocalDateTime instanteCriacao = LocalDateTime.now();
 
-    public Autor(@NotBlank String nome, @NotBlank @Email String email,@NotBlank @Size(max = 400) String descricao) {
+    public Author(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
 
         this.nome = nome;
         this.email = email;
